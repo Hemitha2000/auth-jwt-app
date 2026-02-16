@@ -29,3 +29,10 @@ Built with Express.js, MongoDB (Mongoose), following MVC architecture.
 
 ## 📁 Project Structure
 
+
+test this API in POSTMAN for more details refer User Authentication API.postman_collection.json to get the sample data
+
+https://auth-jwt-app.onrender.com/api/auth/register
+https://auth-jwt-app.onrender.com/api/auth/login
+https://auth-jwt-app.onrender.com/api/auth/profile
+
