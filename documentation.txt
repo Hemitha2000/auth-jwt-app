@@ -1,0 +1,84 @@
+--------------Pharse 1 Project Setup & Folder Structure-----------------------
+step 1 : Initialize Node project (npm init -y)
+step 2 : Install required packages (npm install express mongoose jsonwebtoken bcryptjs dotenv and npm install nodemon --save-dev)
+          What these are for (simple words):
+          express → server
+          mongoose → MongoDB
+          jsonwebtoken (JWT) → tokens
+          bcryptjs → password hashing
+          dotenv → environment variables
+          nodemon → auto-restart server
+step 3 : Create folder structure(MVC)
+            auth-jwt-app
+            │
+            ├── src
+            │   ├── config
+            │   │   └── db.js
+            │   │
+            │   ├── models
+            │   │   └── User.js
+            │   │
+            │   ├── controllers
+            │   │   └── authController.js
+            │   │
+            │   ├── middleware
+            │   │   └── authMiddleware.js
+            │   │
+            │   ├── routes
+            │   │   └── authRoutes.js
+            │   │
+            │   └── app.js
+            │
+            ├── .env
+            ├── package.json
+            └── server.js
+step 4 : update script to start , listen and restart express in package.json and update/Create basic server in server.js and update/Create Express app into (src/app.js) 
+step 5 : Run the server (npm run dev)
+--------------Pharse 1 resut : Auth API is running-----------------------
+
+--------------Pharse 2 Connect MongoDB using Mongoose-----------------------
+step 6 : Add MongoDB URI and jwt secret in .env 
+           -- to create jwt secret using this command (node -e "console.log(require('crypto').randomBytes(32).toString('hex'))") and paste it in JWT_SECRET key
+step 7 : Create DB connection file (src/config/db.js)
+step 8 : Use DB connection in server.js and run server (npm run dev)
+--------------Pharse 2 result : Connected MongoDB using Mongoose-----------------------
+
+--------------Pharse 3 Create User Model (Mongoose Schema)-----------------------
+step 9 : Create and update the Schema for User model (src/models/User.js)
+step 10 : Hash password before saving 
+step 11 : Add password comparison method
+--------------Pharse 3 Created User Model and password hashing (Mongoose Schema)-------------
+
+--------------Pharse 4 User Registration API (Register)-----------------------
+step 12 : Create Auth Controller (src/controllers/authController.js)
+step 13 : Create Auth Routes (src/routes/authRoutes.js)
+step 14 : Connect routes to app. Update (src/app.js)
+step 15 : test the API in POSTMAN (POST http://localhost:5000/api/auth/register)
+            Body (raw → JSON) sample data : { "username": "Ganesh", "email": "ganesh@test.com", "password": "password123" }
+            response : { "message": "User registered successfully", "userId": "697f04c3149b80dd4826fc1d" }
+--------------Pharse 4 result : created users -----------------------
+
+--------------Pharse 5 User Login + JWT Token Generation----------------------- 
+step 16 : valid credentials then find the user then check password finally Generate token for login function implementation in (src/controllers/authController.js)
+step 17 : add router for the login function (src/routes/authRoutes.js)
+step 18 : test the API in postman (http://localhost:5000/api/auth/login)   
+            Body (raw → JSON) sample data : { "email": "ganesh@test.com", "password": "password123" } 
+            response : { "message": "Login successful", "token": "eyJhbGciOiJI.eyJpZCI6IjY5N2Yw..." }  
+--------------Pharse 5 User LoggedIn with JWT Token -----------------------     
+
+--------------Pharse 6 JWT Middleware (Bearer Token Verification) ----------------------- 
+step 19 : Create Auth Middleware (src/middleware/authMiddleware.js)  
+step 20 : Create Protected Route (Get User Profile)  (src/controllers/authController.js -- getUserProfile )   
+step 21 : Add Protected Route (src/routes/authRoutes.js)
+step 22 : get the Token from this API POST (api/auth/login) and Testing API URL GET (http://localhost:5000/api/auth/profile) 
+            Headers : Authorization: Bearer TOKEN_HERE
+            response : { "message": "User profile fetched successfully", "user": { "_id": "...", "username": "Ganesh", "email": "ganesh@test.com", "createdAt": "...", "updatedAt": "..." } }
+--------------Pharse 6 JWT Middleware (Bearer Token Verification) end -----------------------
+
+--------------Pharse 7 Centralized Error Handling & Validation-----------------------
+step 23 : Create Error Middleware (src/middleware/errorMiddleware.js)
+step 24 : Use Error Middleware in app.js (errorHandler)
+step 25 : Improve Controller Error Handling in the controller file. Do this inside each catch block.
+step 26 : added regex and duplication validation for email in the register API
+step 27 : added invalid credentials to test user Login 
+--------------Pharse 7 Centralized Error Handling & Validation end -----------------------
